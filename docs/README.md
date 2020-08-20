@@ -73,3 +73,11 @@ Keep in mind some data about pshycology of colors, this palete has been selected
 - #D6DD70 as info color
 - #FFFFF9 as light color
 - #D1551A as error/warning color
+
+### Frameworks
+
+This project is developed with ReactJS within the front end and Django at backend.
+
+Both docs are found here:
+- [ReactJS](./README-rj.md)
+- [Django](./README-django.md)
