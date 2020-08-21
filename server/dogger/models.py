@@ -1,33 +1,38 @@
 from django.db import models
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
-class Users(models.Models):
-    name = models.CharField(max_Length=30)
-    last_name = models.CharField(max_Length=30)
+class Users(models.Model):
+    name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
     age = models.IntegerField()
     email = models.EmailField(unique=True)
     walker = models.BooleanField(default=False)
     owner = models.BooleanField(default=False)
-    avatar = models.ImageField()
-    timestamp = models.DataTimeField(auto_now_add=True, auto_now=False)
+    avatar = models.ImageField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     def __str__ (self):
-        return self.email
+        return "%s %s" % (self.name, self.last_name)
 
-class Dogs(models.Models):
-    name = models.CharField(max_Length=50)
+class Dogs(models.Model):
+    name = models.CharField(max_length=50)
     age = models.IntegerField()
     size = models.ForeignKey('DogSize', on_delete=models.DO_NOTHING)
     owner = models.ForeignKey('Users', on_delete=models.CASCADE)
-    walker = models.ForeignKey('Users', null=True, blank=True, on_delete=models.SET_NULL)
-    schedule = models.JSONField(null=True, blank=True)
+    walker = models.ForeignKey('Walkers', null=True, blank=True, on_delete=models.SET_NULL)
 
-class DogSize(models.Models):
-    size = models.CharFiel(max_Length=8)
+    def __str__ (self):
+        return self.name
 
-class Schedules(models.Models):
-    day_of_week = models.CharField(default='Monday',
+class DogSize(models.Model):
+    size = models.CharField(max_length=8)
+
+    def __str__ (self):
+        return self.size
+
+class Schedules(models.Model):
+    day_of_week = models.CharField(max_length=10, default='Monday',
         choices=(('monday', 'Monday'),
             ('tuesday', 'Tuesday'),
             ('wednesday', 'Wednesday'),
@@ -35,9 +40,20 @@ class Schedules(models.Models):
             ('friday', 'Friday'),
             ('saturday', 'Saturday'),
             ('sunday', 'Sunday')))
-    hour = models.PositiveSmallIntegerField(validators=[MaxValueValidator(24)])
-    dogs = models.ManyToManyField('Dogs', null=True, blank=True, on_delete=models.SET_NULL)
+    hour = models.PositiveSmallIntegerField(validators=[MinValueValidator(7), MaxValueValidator(20)])
+    size = models.ForeignKey('DogSize', null=True, blank=True, on_delete=models.SET_NULL)
 
-class Walkers(models.Models):
+class ScheduledWalks(models.Model):
+    schedule = models.ForeignKey('Schedules', on_delete=models.CASCADE)
+    dog = models.ForeignKey('Dogs', on_delete=models.CASCADE)
+    walker = models.ForeignKey('Walkers', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.schedule
+
+class Walkers(models.Model):
     walker = models.ForeignKey('Users', on_delete=models.CASCADE)
-    schedules = models.ManyToManyField('Schedules', on_delete=models.DO_NOTHING)
+    schedules = models.ManyToManyField('Schedules')
+
+    def __str__(self):
+        return self.walker
