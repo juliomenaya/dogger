@@ -13,7 +13,7 @@ After activate the virtualenv:
 
 And install every project requeriment
 
-> $ pip install ./requeriments.txt
+> $ pip install -r requeriments.txt
 
 When everything is installed, turn on django server with:
 
