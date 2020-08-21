@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import *
+from dogger.models import *
 
 class AdminUsers(admin.ModelAdmin):
   list_display = ["email", "__str__", "timestamp"]

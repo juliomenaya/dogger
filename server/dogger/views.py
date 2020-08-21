@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from rest_framework.views import APIview
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from serializers import *
-from models import *
+from dogger.serializers import *
+from dogger.models import *
 
 # Create your views here.
-class Users(APIview):
+class Users(APIView):
 	"""
 	List all users, or create new user.
 	"""
@@ -23,7 +23,7 @@ class Users(APIview):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UsersDetails(APIview):
+class UsersDetails(APIView):
 	"""
 	Retrieve, update or delete a user instance.
 	"""
@@ -51,7 +51,7 @@ class UsersDetails(APIview):
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
-class Dogs(APIview):
+class Dogs(APIView):
 	"""
 	List all users, or create new user.
 	"""
@@ -67,7 +67,7 @@ class Dogs(APIview):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class DogsDetails(APIview):
+class DogsDetails(APIView):
 	"""
 	Retrieve, update or delete a dog instance.
 	"""
@@ -95,7 +95,7 @@ class DogsDetails(APIview):
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
-class DogSize(APIview):
+class DogSize(APIView):
 	"""
 	List all dog sizes
 	"""
@@ -104,7 +104,7 @@ class DogSize(APIview):
 		serializer = DogSizeSerializer(users, many=True)
 		return Response(serializer.data)
 
-class DogSizeDetails(APIview):
+class DogSizeDetails(APIView):
 	"""
 	List a dog size instance.
 	"""
@@ -119,7 +119,7 @@ class DogSizeDetails(APIview):
 		serializer = DogSizeSerializer(user)
 		return Response(serializer.data)
 
-class Schedules(APIview):
+class Schedules(APIView):
 	"""
 	List all schedules, create new schedules.
 	"""
@@ -135,7 +135,7 @@ class Schedules(APIview):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class SchedulesDetails(APIview):
+class SchedulesDetails(APIView):
 	"""
 	Retrieve, update or delete a schedule instance.
 	"""
@@ -163,7 +163,7 @@ class SchedulesDetails(APIview):
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
-class ScheduledWalks(APIview):
+class ScheduledWalks(APIView):
 	"""
 	List all scheduled walks, create a new scheduled walk.
 	"""
@@ -179,7 +179,7 @@ class ScheduledWalks(APIview):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	
-class ScheduledWalksDetails(APIview):
+class ScheduledWalksDetails(APIView):
 	"""
 	Retrieve, update or delete a scheduled walk instance.
 	"""
@@ -207,7 +207,7 @@ class ScheduledWalksDetails(APIview):
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
-class Walkers(APIview):
+class Walkers(APIView):
 	"""
 	List all walkers, create a new walker.
 	"""
@@ -223,7 +223,7 @@ class Walkers(APIview):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class WalkersDetails(APIview):
+class WalkersDetails(APIView):
 	"""
 	Retrieve, update or delete a walker instance.
 	"""
