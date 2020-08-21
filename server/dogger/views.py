@@ -4,15 +4,20 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 from dogger.serializers import *
-from dogger.models import *
+from dogger.models import Users as UsersModel
+from dogger.models import Dogs as DogsModel
+from dogger.models import DogSize as DogSizeModel
+from dogger.models import Schedules as SchedulesModel
+from dogger.models import ScheduledWalks as ScheduledWalksModel
+from dogger.models import Walkers as WalkersModel
 
 # Create your views here.
-class Users(APIView):
+class UsersView(APIView):
 	"""
 	List all users, or create new user.
 	"""
-	def get(self, request, pk, format=None):
-		users = Users.object.all()
+	def get(self, request, format=None):
+		users = UsersModel.objects.all()
 		serializer = UserSerializer(users, many=True)
 		return Response(serializer.data)
 
@@ -23,13 +28,13 @@ class Users(APIView):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UsersDetails(APIView):
+class UsersDetailsView(APIView):
 	"""
 	Retrieve, update or delete a user instance.
 	"""
 	def get_object(self, pk):
 		try:
-			return Users.objects.get(pk=pk)
+			return UsersModel.objects.get(pk=pk)
 		except Users.DoesNotExist:
 			raise Http404
 
@@ -51,12 +56,12 @@ class UsersDetails(APIView):
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
-class Dogs(APIView):
+class DogsView(APIView):
 	"""
 	List all users, or create new user.
 	"""
-	def get(self, request, pk, format=None):
-		users = Dogs.object.all()
+	def get(self, request, format=None):
+		users = DogsModel.objects.all()
 		serializer = DogSerializer(users, many=True)
 		return Response(serializer.data)
 
@@ -67,13 +72,13 @@ class Dogs(APIView):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class DogsDetails(APIView):
+class DogsDetailsView(APIView):
 	"""
 	Retrieve, update or delete a dog instance.
 	"""
 	def get_object(self, pk):
 		try:
-			return Dogs.objects.get(pk=pk)
+			return DogsModel.objects.get(pk=pk)
 		except Dogs.DoesNotExist:
 			raise Http404
 
@@ -95,22 +100,22 @@ class DogsDetails(APIView):
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
-class DogSize(APIView):
+class DogSizeView(APIView):
 	"""
 	List all dog sizes
 	"""
-	def get(self, request, pk, format=None):
-		users = DogSize.object.all()
+	def get(self, request, format=None):
+		users = DogSizeModel.objects.all()
 		serializer = DogSizeSerializer(users, many=True)
 		return Response(serializer.data)
 
-class DogSizeDetails(APIView):
+class DogSizeDetailsView(APIView):
 	"""
 	List a dog size instance.
 	"""
 	def get_object(self, pk):
 		try:
-			return DogSize.objects.get(pk=pk)
+			return DogSizeModel.objects.get(pk=pk)
 		except DogSize.DoesNotExist:
 			raise Http404
 
@@ -119,12 +124,12 @@ class DogSizeDetails(APIView):
 		serializer = DogSizeSerializer(user)
 		return Response(serializer.data)
 
-class Schedules(APIView):
+class SchedulesView(APIView):
 	"""
 	List all schedules, create new schedules.
 	"""
-	def get(self, request, pk, format=None):
-		users = Schedules.object.all()
+	def get(self, request, format=None):
+		users = SchedulesModel.objects.all()
 		serializer = ScheduleSerializer(users, many=True)
 		return Response(serializer.data)
 
@@ -135,13 +140,13 @@ class Schedules(APIView):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class SchedulesDetails(APIView):
+class SchedulesDetailsView(APIView):
 	"""
 	Retrieve, update or delete a schedule instance.
 	"""
 	def get_object(self, pk):
 		try:
-			return Schedules.objects.get(pk=pk)
+			return SchedulesModel.objects.get(pk=pk)
 		except Schedules.DoesNotExist:
 			raise Http404
 
@@ -163,12 +168,12 @@ class SchedulesDetails(APIView):
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
-class ScheduledWalks(APIView):
+class ScheduledWalksView(APIView):
 	"""
 	List all scheduled walks, create a new scheduled walk.
 	"""
-	def get(self, request, pk, format=None):
-		users = ScheduledWalks.object.all()
+	def get(self, request, format=None):
+		users = ScheduledWalksModel.objects.all()
 		serializer = ScheduledWalkSerializer(users, many=True)
 		return Response(serializer.data)
 
@@ -179,13 +184,13 @@ class ScheduledWalks(APIView):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	
-class ScheduledWalksDetails(APIView):
+class ScheduledWalksDetailsView(APIView):
 	"""
 	Retrieve, update or delete a scheduled walk instance.
 	"""
 	def get_object(self, pk):
 		try:
-			return ScheduledWalks.objects.get(pk=pk)
+			return ScheduledWalksModel.objects.get(pk=pk)
 		except ScheduledWalks.DoesNotExist:
 			raise Http404
 
@@ -207,12 +212,12 @@ class ScheduledWalksDetails(APIView):
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
-class Walkers(APIView):
+class WalkersView(APIView):
 	"""
 	List all walkers, create a new walker.
 	"""
-	def get(self, request, pk, format=None):
-		users = Walkers.object.all()
+	def get(self, request, format=None):
+		users = WalkersModel.objects.all()
 		serializer = WalkerSerializer(users, many=True)
 		return Response(serializer.data)
 
@@ -223,13 +228,13 @@ class Walkers(APIView):
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class WalkersDetails(APIView):
+class WalkersDetailsView(APIView):
 	"""
 	Retrieve, update or delete a walker instance.
 	"""
 	def get_object(self, pk):
 		try:
-			return Walkers.objects.get(pk=pk)
+			return WalkersModel.objects.get(pk=pk)
 		except Walkers.DoesNotExist:
 			raise Http404
 
