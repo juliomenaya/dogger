@@ -46,7 +46,6 @@ class Schedules(models.Model):
 class ScheduledWalks(models.Model):
     schedule = models.ForeignKey('Schedules', on_delete=models.CASCADE)
     dog = models.ForeignKey('Dogs', on_delete=models.CASCADE)
-    walker = models.ForeignKey('Walkers', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.schedule

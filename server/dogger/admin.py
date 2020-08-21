@@ -19,9 +19,9 @@ class AdminDogs(admin.ModelAdmin):
 
 
 class AdminScheduledWalks(admin.ModelAdmin):
-  list_display = ["schedule", "dog", "walker"]
-  list_filter = ["schedule", "dog", "walker"]
-  search_fields = ["schedule", "dog", "walker"]
+  list_display = ["schedule", "dog"]
+  list_filter = ["schedule", "dog"]
+  search_fields = ["schedule", "dog"]
   class Meta:
       meta = ScheduledWalks
 
