@@ -18,4 +18,5 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    (r'^api/v1/', include(dogger.urls))
 ]
