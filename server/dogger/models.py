@@ -3,6 +3,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 class Users(models.Model):
+    account = models.ForeignKey('auth.User', related_name='account', on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     age = models.IntegerField()
