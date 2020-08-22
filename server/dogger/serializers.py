@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from dogger.models import *
 
@@ -5,6 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
         fields = '__all__'
+        depth = 1
 
 class DogSerializer(serializers.ModelSerializer):
     class Meta:

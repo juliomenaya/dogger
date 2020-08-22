@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User as Auth
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from django.http import Http404
 from dogger.serializers import *
 from dogger.models import Users as UsersModel
@@ -16,22 +17,39 @@ class UsersView(APIView):
 	"""
 	List all users, or create new user.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get(self, request, format=None):
 		users = UsersModel.objects.all()
 		serializer = UserSerializer(users, many=True)
 		return Response(serializer.data)
 
+	def create_user(self, data):
+		username = data.username
+		password = data.password
+		email = data.email
+		user = Auth.objects.create_user(username, email, password)
+		user.save()
+		return user.data
+
 	def post(self, request, format=None):
 		serializer = UserSerializer(data=request.data)
 		if serializer.is_valid():
-			serializer.save()
+			user = self.create_user(request.data)
+			serializer.save(account=user)
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	
 
 class UsersDetailsView(APIView):
 	"""
 	Retrieve, update or delete a user instance.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get_object(self, pk):
 		try:
 			return UsersModel.objects.get(pk=pk)
@@ -39,7 +57,7 @@ class UsersDetailsView(APIView):
 			raise Http404
 
 	def get(self, request, pk, format=None):
-		user = Users.object.get(pk=pk)
+		user = self.get_object(pk)
 		serializer = UserSerializer(user)
 		return Response(serializer.data)
 	
@@ -52,14 +70,17 @@ class UsersDetailsView(APIView):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	
 	def delete(self, request, pk, format=None):
-		user = self.get_object(pk)
-		user.delete()
+		account = Auth.objects.filter(pk)
+		account.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 class DogsView(APIView):
 	"""
 	List all users, or create new user.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get(self, request, format=None):
 		users = DogsModel.objects.all()
 		serializer = DogSerializer(users, many=True)
@@ -76,6 +97,9 @@ class DogsDetailsView(APIView):
 	"""
 	Retrieve, update or delete a dog instance.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get_object(self, pk):
 		try:
 			return DogsModel.objects.get(pk=pk)
@@ -83,7 +107,7 @@ class DogsDetailsView(APIView):
 			raise Http404
 
 	def get(self, request, pk, format=None):
-		user = Dogs.object.get(pk=pk)
+		user = self.get_object(pk)
 		serializer = DogSerializer(user)
 		return Response(serializer.data)
 	
@@ -104,6 +128,9 @@ class DogSizeView(APIView):
 	"""
 	List all dog sizes
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get(self, request, format=None):
 		users = DogSizeModel.objects.all()
 		serializer = DogSizeSerializer(users, many=True)
@@ -113,6 +140,9 @@ class DogSizeDetailsView(APIView):
 	"""
 	List a dog size instance.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get_object(self, pk):
 		try:
 			return DogSizeModel.objects.get(pk=pk)
@@ -120,7 +150,7 @@ class DogSizeDetailsView(APIView):
 			raise Http404
 
 	def get(self, request, pk, format=None):
-		user = DogSize.object.get(pk=pk)
+		user = self.get_object(pk)
 		serializer = DogSizeSerializer(user)
 		return Response(serializer.data)
 
@@ -128,6 +158,9 @@ class SchedulesView(APIView):
 	"""
 	List all schedules, create new schedules.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get(self, request, format=None):
 		users = SchedulesModel.objects.all()
 		serializer = ScheduleSerializer(users, many=True)
@@ -144,6 +177,9 @@ class SchedulesDetailsView(APIView):
 	"""
 	Retrieve, update or delete a schedule instance.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get_object(self, pk):
 		try:
 			return SchedulesModel.objects.get(pk=pk)
@@ -151,7 +187,7 @@ class SchedulesDetailsView(APIView):
 			raise Http404
 
 	def get(self, request, pk, format=None):
-		user = Schedules.object.get(pk=pk)
+		user = self.get_object(pk)
 		serializer = ScheduleSerializer(user)
 		return Response(serializer.data)
 	
@@ -172,6 +208,9 @@ class ScheduledWalksView(APIView):
 	"""
 	List all scheduled walks, create a new scheduled walk.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get(self, request, format=None):
 		users = ScheduledWalksModel.objects.all()
 		serializer = ScheduledWalkSerializer(users, many=True)
@@ -188,6 +227,9 @@ class ScheduledWalksDetailsView(APIView):
 	"""
 	Retrieve, update or delete a scheduled walk instance.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get_object(self, pk):
 		try:
 			return ScheduledWalksModel.objects.get(pk=pk)
@@ -195,7 +237,7 @@ class ScheduledWalksDetailsView(APIView):
 			raise Http404
 
 	def get(self, request, pk, format=None):
-		user = ScheduledWalks.object.get(pk=pk)
+		user = self.get_object(pk)
 		serializer = ScheduledWalkSerializer(user)
 		return Response(serializer.data)
 	
@@ -216,6 +258,9 @@ class WalkersView(APIView):
 	"""
 	List all walkers, create a new walker.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get(self, request, format=None):
 		users = WalkersModel.objects.all()
 		serializer = WalkerSerializer(users, many=True)
@@ -232,6 +277,9 @@ class WalkersDetailsView(APIView):
 	"""
 	Retrieve, update or delete a walker instance.
 	"""
+	
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+	
 	def get_object(self, pk):
 		try:
 			return WalkersModel.objects.get(pk=pk)
@@ -239,7 +287,7 @@ class WalkersDetailsView(APIView):
 			raise Http404
 
 	def get(self, request, pk, format=None):
-		user = Walkers.object.get(pk=pk)
+		user = self.get_object(pk)
 		serializer = WalkerSerializer(user)
 		return Response(serializer.data)
 
