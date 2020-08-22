@@ -4,40 +4,36 @@ import {
   applyMiddleware
 } from 'redux'
 import thunk from 'redux-thunk'
-import { persistStore, persistReducer } from 'redux-persist'
+import {
+  persistStore,
+  persistReducer
+} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+
+import {
+  account,
+  users,
+  ui
+} from '../reducers'
 
 const persistConfig = {
   key: 'root',
   storage,
 }
 
-const initialState = {
-  username: '',
-  password: '',
-  email: ''
-}
+const reducers = combineReducers([
+  account,
+  users,
+  ui
+])
 
-const account = (state = initialState, {type, payload}) => {
-  switch (type) {
-    case 'LOG_IN':
-      return state
-    case 'LOG_OUT':
-      return state
-    default:
-      return state
-  }
-}
+const persistedReducer = persistReducer(persistConfig, reducers)
 
-const store = combineReducers([account])
+let store = createStore(
+  persistedReducer,
+  applyMiddleware(thunk)
+)
 
-const persistedReducer = persistReducer(persistConfig, store)
+let persistor = persistStore(store)
 
-export default () => {
-  let store = createStore(
-    persistedReducer,
-    applyMiddleware(thunk)
-  )
-  let persistor = persistStore(store)
-  return { store, persistor }
-}
+export default { store, persistor }
