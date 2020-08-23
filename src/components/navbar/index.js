@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from "react-router-dom";
+import { Button } from '../'
 import {
   ButtonsContainer,
   Container,
@@ -21,12 +23,16 @@ const Navbar = (props) => {
       { !isLogged &&
         (
           <ButtonsContainer>
-            <Title>
-              Log in
-            </Title>
-            <Title>
-              Log up
-            </Title>
+            <Link to="/log-up">
+              <Button>
+                Registrarse
+              </Button>
+            </Link>
+            <Link to="/log-in">
+              <Button secondary>
+                Iniciar sesión
+              </Button>
+            </Link>
           </ButtonsContainer>
         )
       }

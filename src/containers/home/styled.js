@@ -12,16 +12,15 @@ export const Container = styled.div`
 
 export const Logo = styled.img`
   flex: 1;
+  padding: 0 5%;
 `
 
 export const TextContainer = styled.div`
-  align-items: center;
   display: flex;
   flex: 1;
   flex-direction: column;
   height: 90%;
   justify-content: space-evenly;
-  text-align: justify;
 `
 
 export const Title = styled.h3`
@@ -31,11 +30,9 @@ export const Title = styled.h3`
 `
 
 export const TitleContainer = styled.h3`
-  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  text-align: justify;
 `
 
 export const SubTitle = styled.h3`
