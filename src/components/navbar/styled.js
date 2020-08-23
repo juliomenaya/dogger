@@ -9,11 +9,12 @@ export const ButtonsContainer = styled.div`
 
 export const Container = styled.nav`
   align-items: center;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,.3);
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.3);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: .8rem 5%;
+  z-index: 1000;
 `
 
 export const Logo = styled.img`
@@ -21,8 +22,8 @@ export const Logo = styled.img`
 `
 
 export const Title = styled.h2`
+  color: #5C5F30;
   font-size: 2.7rem;
-
 `
 
 export const TitleContainer = styled.div`
