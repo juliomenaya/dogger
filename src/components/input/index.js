@@ -7,10 +7,11 @@ import {
 } from './styled'
 
 const Input = ({
-  onChange,
+  error,
   label,
+  onChange,
+  type,
   value,
-  error
 }) => {
   return (
     <InputContainer>
@@ -18,8 +19,9 @@ const Input = ({
         { label }
       </Label>
       <InputElement
-        value={value}
         onChange={onChange}
+        type={type || 'text'}
+        value={value}
       />
       <ErrorLabel>
         { error }
