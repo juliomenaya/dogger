@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
+  ButtonsContainer,
   Container,
   Logo,
   Title,
@@ -8,15 +9,28 @@ import {
 } from './styled'
 
 const Navbar = (props) => {
+  const { isLogged } = props
   return (
     <nav>
       <Container>
         <TitleContainer>
-          <Logo/>
+          <Logo src={require('../../assets/img/png/logo/dogger_icon.png')} alt='Logo' />
           <Title>
             Dogger
           </Title>
         </TitleContainer>
+        { !isLogged &&
+          (
+            <ButtonsContainer>
+              <Title>
+                Log in
+              </Title>
+              <Title>
+                Log up
+              </Title>
+            </ButtonsContainer>
+          )
+        }
       </Container>
     </nav>
   )
