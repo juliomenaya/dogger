@@ -10,7 +10,7 @@ import { Home } from './containers';
 function App() {
   return (
     <Router>
-      <div>
+      <div className='principal-container'>
         <Navbar />
         <Switch>
           <Route path="/">
