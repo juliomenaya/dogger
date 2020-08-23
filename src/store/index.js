@@ -21,11 +21,11 @@ const persistConfig = {
   storage,
 }
 
-const reducers = combineReducers([
+const reducers = combineReducers({
   account,
   users,
   ui
-])
+})
 
 const persistedReducer = persistReducer(persistConfig, reducers)
 
