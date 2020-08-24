@@ -40,7 +40,6 @@ const LogIn = () => {
             isValid
           }) => (
             <>
-              {console.log('fooormik >>>', errors, isValid, !isValid || isSubmitting)}
               <Input
                 error={errors.email}
                 label='Correo'
