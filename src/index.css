@@ -54,6 +54,7 @@ code {
 }
 
 .principal-container {
+	background: #FFFFF9;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;

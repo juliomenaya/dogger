@@ -35,7 +35,7 @@ Within log in view, the navbar with app title is shown at top. Onto middle, the 
 
 #### Log Up
 
-![Log up](./Wireframes/Log_up.png)
+![Log up](./Wireframes/Log_Up.png)
 
 Log up view is created to give users where register himself. In other hand respect to login page, here there is not the app logo at middle, only the register form, to get user attention to each input there.
 
