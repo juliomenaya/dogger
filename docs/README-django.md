@@ -9,7 +9,11 @@ Navigate with terminal at `server` folder and type these commads to create virtu
 
 After activate the virtualenv:
 
+- `Linux/Mac`
 > $ source dogger/bin/activate\
+
+- `Windows`
+> $ dogger/Scripts/activate\
 
 And install every project requeriment
 

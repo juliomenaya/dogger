@@ -76,8 +76,34 @@ Keep in mind some data about pshycology of colors, this palete has been selected
 
 ### Frameworks
 
-This project is developed with ReactJS within the front end and Django at backend.
+This project is developed with ReactJS within the front end and Django at backend, adding some others libraries as:
 
-Both docs are found here:
+##### Django
+- [Django REST Framework](https://www.django-rest-framework.org/)
+  - Tool to easly create APIs
+- [Pillow](https://pillow.readthedocs.io/en/stable/)
+  - Lib to manage images within Django
+
+##### React
+- [Formik](https://formik.org/)
+  - Module to manage forms, managing and validating input values.
+- [React Google Maps](https://tomchentw.github.io/react-google-maps/)
+  - Module to manage address and geolocalization
+- [React Router](https://reactrouter.com/)
+  - Module to set routing.
+- [React Redux](https://react-redux.js.org/)
+  - Module to get a better integration between React and Redux.
+- [Redux](https://redux.js.org/)
+  - Module auxiliar to stage data and access it from the whole app.
+- [Redux Persist](https://github.com/rt2zz/redux-persist)
+  - Module to access to local storage and get data from older sessions.
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk)
+  - Middleware used with Redux actions.
+- [Styled Components](https://styled-components.com/)
+  - Lib to easly style components.
+- [Yup](https://github.com/jquense/yup)
+  - Tool to create validation schemas to use with Formik.
+
+Both frameworks initial docs are found here:
 - [ReactJS](./README-rj.md)
 - [Django](./README-django.md)
