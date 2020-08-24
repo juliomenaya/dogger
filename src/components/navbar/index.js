@@ -16,9 +16,11 @@ const Navbar = (props) => {
     <Container>
       <TitleContainer>
         <Logo src={require('../../assets/img/png/logo/dogger_icon.png')} alt='Logo' />
-        <Title>
-          Dogger
-        </Title>
+        <Link to="/" style={{ textDecoration: 'none'}}>
+          <Title>
+            Dogger
+          </Title>
+        </Link>
       </TitleContainer>
       { !isLogged &&
         (
