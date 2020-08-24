@@ -5,7 +5,10 @@ import {
   Route
 } from 'react-router-dom'
 import { Navbar } from './components'
-import { Home } from './containers';
+import {
+  Home,
+  LogIn
+} from './containers';
 
 function App() {
   return (
@@ -13,13 +16,13 @@ function App() {
       <div className='principal-container'>
         <Navbar />
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
           </Route>
-          {/* <Route path="/log-in">
+          <Route path="/log-in">
             <LogIn />
           </Route>
-          <Route path="/log-up">
+          {/* <Route path="/log-up">
             <LogUp />
           </Route>
           <Route path="/dashboard">
