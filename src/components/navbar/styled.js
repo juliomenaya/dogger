@@ -25,6 +25,7 @@ export const Logo = styled.img`
 export const Title = styled.h2`
   color: #5C5F30;
   font-size: 2.7rem;
+  text-decoration: none;
 `
 
 export const TitleContainer = styled.div`

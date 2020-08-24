@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
+  Redirect,
   Route
 } from 'react-router-dom'
 import { Navbar } from './components'
@@ -11,7 +13,28 @@ import {
   LogUp
 } from './containers';
 
-function App() {
+const AuthRoute = ({ isLogged }) => (
+  <Route path="/dashboard">
+    {
+      isLogged
+      ? (<>
+          <h6>Dashboard</h6>
+          {/* <Dashboard /> */}
+        </>
+        )
+      : (
+          <Redirect
+            to={{
+              pathname:'/'
+            }}
+          />
+        )
+    }
+  </Route>
+)
+
+function App(props) {
+  const { isLogged } = props
   return (
     <Router>
       <div className='principal-container'>
@@ -26,16 +49,17 @@ function App() {
           <Route path="/log-up">
             <LogUp />
           </Route>
-          {/* <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/dashboard/details">
-            <Details />
-          </Route> */}
+          <AuthRoute 
+            isLogged={isLogged}
+          />
         </Switch>
       </div>
     </Router>
   );
 }
 
-export default App;
+const mapStateToProps = ({ account }) => ({
+  isLogged: account.isLogged
+})
+
+export default connect(mapStateToProps)(App);
