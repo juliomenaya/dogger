@@ -69,8 +69,8 @@ Every user has a 'My Account' view, where his info is shown and can be edited, o
 
 Keep in mind some data about pshycology of colors, this palete has been selected: 
 - #5C5F30 as primary and dark color
-- #F6A970 as secondary
-- #D6DD70 as info color
+- #D6DD70 as secondary
+- #F6A970 as info color
 - #FFFFF9 as light color
 - #D1551A as error/warning color
 
