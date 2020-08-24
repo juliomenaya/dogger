@@ -7,7 +7,8 @@ import {
 import { Navbar } from './components'
 import {
   Home,
-  LogIn
+  LogIn,
+  LogUp
 } from './containers';
 
 function App() {
@@ -22,10 +23,10 @@ function App() {
           <Route path="/log-in">
             <LogIn />
           </Route>
-          {/* <Route path="/log-up">
+          <Route path="/log-up">
             <LogUp />
           </Route>
-          <Route path="/dashboard">
+          {/* <Route path="/dashboard">
             <Dashboard />
           </Route>
           <Route path="/dashboard/details">
