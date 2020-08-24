@@ -6,16 +6,22 @@ import {
 
 const Button = ({
   children,
+  disabled,
   onPress,
-  secondary
+  secondary,
+  wide
 }) => {
   return (
     <ButtonContainer
-      secondary={secondary}
+      disabled={disabled}
       onClick={onPress}
+      secondary={secondary}
+      type='button'
+      wide={wide}
     >
       <Text
         secondary={secondary}
+        wide={wide}
       >
         { children }
       </Text>

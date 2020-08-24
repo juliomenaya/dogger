@@ -9,9 +9,10 @@ import {
 const Input = ({
   error,
   label,
+  name,
   onChange,
   type,
-  value,
+  value
 }) => {
   return (
     <InputContainer>
@@ -19,6 +20,8 @@ const Input = ({
         { label }
       </Label>
       <InputElement
+        error={error}
+        name={name}
         onChange={onChange}
         type={type || 'text'}
         value={value}
