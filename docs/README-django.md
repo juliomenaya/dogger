@@ -19,7 +19,10 @@ And install every project requeriment
 
 > $ pip install -r requeriments.txt
 
-When everything is installed, turn on django server with:
+When everything is installed, set every migration:
+> $ python manage.py migrate
+
+Then turn on django server with:
 
 > $ python manage.py runserver
 
