@@ -12,36 +12,7 @@ from dogger.models import Schedules as SchedulesModel
 from dogger.models import ScheduledWalks as ScheduledWalksModel
 from dogger.models import Walkers as WalkersModel
 
-# Create your views here.
-class UsersView(APIView):
-	"""
-	List all users, or create new user.
-	"""
-	
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-	
-	def get(self, request, format=None):
-		users = UsersModel.objects.all()
-		serializer = UserSerializer(users, many=True)
-		return Response(serializer.data)
-
-	def create_user(self, data):
-		username = data.username
-		password = data.password
-		email = data.email
-		user = Auth.objects.create_user(username, email, password)
-		user.save()
-		return user.data
-
-	def post(self, request, format=None):
-		serializer = UserSerializer(data=request.data)
-		if serializer.is_valid():
-			user = self.create_user(request.data)
-			serializer.save(account=user)
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
-		return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-	
+# Create your views here.	
 
 class UsersDetailsView(APIView):
 	"""
