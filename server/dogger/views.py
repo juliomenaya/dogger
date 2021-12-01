@@ -5,12 +5,12 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.http import Http404
 from dogger.serializers import *
-from dogger.models import Users as UsersModel
-from dogger.models import Dogs as DogsModel
-from dogger.models import DogSize as DogSizeModel
-from dogger.models import Schedules as SchedulesModel
-from dogger.models import ScheduledWalks as ScheduledWalksModel
-from dogger.models import Walkers as WalkersModel
+# from dogger.models import Users as UsersModel
+# from dogger.models import Dogs as DogsModel
+# from dogger.models import DogSize as DogSizeModel
+# from dogger.models import Schedules as SchedulesModel
+# from dogger.models import ScheduledWalks as ScheduledWalksModel
+# from dogger.models import Walkers as WalkersModel
 
 # Create your views here.	
 

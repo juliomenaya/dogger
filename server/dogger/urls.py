@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from dogger import views
 
 urlpatterns = [
-    path('users/', views.UsersView.as_view()),
+    # path('users/', views.UsersView.as_view()),
     path('users/<int:pk>/', views.UsersDetailsView.as_view()),
     path('dogs/', views.DogsView.as_view()),
     path('dogs/<int:pk>/', views.DogsDetailsView.as_view()),
