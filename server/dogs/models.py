@@ -1,9 +1,5 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
 from users.models import Users
-from walkers.models import Walkers
-
-# Create your models here.
 
 
 class Dogs(models.Model):
@@ -11,10 +7,12 @@ class Dogs(models.Model):
     age = models.IntegerField()
     size = models.ForeignKey('DogSize', on_delete=models.DO_NOTHING)
     owner = models.ForeignKey(Users, on_delete=models.CASCADE)
-    walker = models.ForeignKey(Walkers, null=True, blank=True, on_delete=models.SET_NULL)
+    # dog will have a walker just when his owner scheduled a walk
+    # walker = models.ForeignKey('walkers.Walkers', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__ (self):
         return self.name
+
 
 class DogSize(models.Model):
     size = models.CharField(max_length=8)
@@ -22,14 +20,3 @@ class DogSize(models.Model):
     def __str__ (self):
         return self.size
 
-class Schedules(models.Model):
-    day_of_week = models.CharField(max_length=10, default='Monday',
-        choices=(('monday', 'Monday'),
-            ('tuesday', 'Tuesday'),
-            ('wednesday', 'Wednesday'),
-            ('thursday', 'Thursday'),
-            ('friday', 'Friday'),
-            ('saturday', 'Saturday'),
-            ('sunday', 'Sunday')))
-    hour = models.PositiveSmallIntegerField(validators=[MinValueValidator(7), MaxValueValidator(20)])
-    size = models.ForeignKey('DogSize', null=True, blank=True, on_delete=models.SET_NULL)
