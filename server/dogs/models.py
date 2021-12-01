@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from users.models import Users
+from walkers.models import Walkers
 
 # Create your models here.
 
@@ -8,8 +10,8 @@ class Dogs(models.Model):
     name = models.CharField(max_length=50)
     age = models.IntegerField()
     size = models.ForeignKey('DogSize', on_delete=models.DO_NOTHING)
-    owner = models.ForeignKey('Users', on_delete=models.CASCADE)
-    walker = models.ForeignKey('Walkers', null=True, blank=True, on_delete=models.SET_NULL)
+    owner = models.ForeignKey(Users, on_delete=models.CASCADE)
+    walker = models.ForeignKey(Walkers, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__ (self):
         return self.name

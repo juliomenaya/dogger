@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'dogger'
+    'dogger',
+    'users',
+    'walkers',
+    'dogs'
 ]
 
 MIDDLEWARE = [
