@@ -1,5 +1,8 @@
 import React from 'react'
 import { Formik } from 'formik'
+import { useHistory } from 'react-router-dom';
+
+
 import {
   Button,
   Input,
@@ -24,6 +27,8 @@ const initialValues = {
 }
 
 const LogUp = () => {
+  const history = useHistory();
+
   return (
     <Container>
       <Title>Registro</Title>
@@ -34,8 +39,7 @@ const LogUp = () => {
           try {
             let created = await signup(props);
             if (created) {
-              console.log('User created')
-              // Navigate
+              history.push('/');
             }
           } catch (err) {
             console.log('Error singning up', err);
