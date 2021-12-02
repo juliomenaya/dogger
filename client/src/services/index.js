@@ -1,4 +1,4 @@
 import client from "./api";
-import { signup } from "./account";
+import { signup, loginUser } from "./account";
 
-export { client, signup };
+export { client, signup, loginUser };

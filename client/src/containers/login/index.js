@@ -1,5 +1,9 @@
 import React from 'react'
 import { Formik } from 'formik'
+import { useDispatch } from 'react-redux';
+import { useAlert } from 'react-alert';
+
+import { login } from '../../reducers/account';
 import {
   Button,
   Input
@@ -18,6 +22,9 @@ const initialValues = {
 }
 
 const LogIn = () => {
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  
   return (
     <Container>
       <Logo src={require('../../assets/img/png/logo/dogger_logo.png')} alt='Dogger' />
@@ -27,7 +34,12 @@ const LogIn = () => {
           initialValues={initialValues}
           validationSchema={logInValidation}
           onSubmit={(props) => {
-            console.log('formik props >>>', props)
+            let { email, password } = props;
+            dispatch(login(email, password)).then(({loggedIn, error}) => {
+              if (error) {
+                alert.show(error, { type: 'error'} );
+              }
+            });
           }}
         >
           {({
