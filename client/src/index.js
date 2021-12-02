@@ -6,13 +6,21 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Store from './store'
+import { positions, Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 
 const { store, persistor } = Store
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+      <AlertProvider
+        template={AlertTemplate}
+        position={positions.BOTTOM_RIGHT}
+        timeout={2000}
+      >
+        <App />
+      </AlertProvider>
     </PersistGate>
   </Provider>,
   document.getElementById('root')

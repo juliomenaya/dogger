@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik } from 'formik'
 import { useHistory } from 'react-router-dom';
+import { useAlert } from "react-alert";
 
 
 import {
@@ -28,6 +29,7 @@ const initialValues = {
 
 const LogUp = () => {
   const history = useHistory();
+  const alert = useAlert();
 
   return (
     <Container>
@@ -39,10 +41,14 @@ const LogUp = () => {
           try {
             let created = await signup(props);
             if (created) {
+              alert.show('Tu perfil fue creado', { type: 'success' });
               history.push('/');
             }
           } catch (err) {
-            console.log('Error singning up', err);
+            alert.show(
+              'Ocurrió un error al intentar crear tu perfil',
+              { type: 'error' }
+            );
           }
         }}
       >
