@@ -1,14 +1,13 @@
-import json
-
 from django.contrib.auth.models import User as Auth
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from utils.account import register_user
 from utils.mixins.DetailsMixin import DetailsMixin
 
 from .models import Users
-from .serializers import UserSerializer, UserSignUpSerializer
+from .serializers import UserSerializer
 
 
 class UsersViewSet(ModelViewSet):
@@ -16,25 +15,11 @@ class UsersViewSet(ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def signup(self, request):
-        data = json.loads(request.body)
-        serializer = UserSignUpSerializer(data=data)
+        user, errors = register_user(Users, request.body)
         
-        if serializer.is_valid():
-            auth_user = Auth(
-                password=data['password'],
-                email=data['email'],
-                username=f"{data['name']}.{data['last_name']}"
-            )
-            auth_user.save()
-            user = Users(
-                name=data['name'],
-                last_name=data['last_name'],
-                phone=data['phone'],
-                user=auth_user
-            )
-            user.save()
+        if user:
             return Response(status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 
