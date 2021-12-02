@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from dogger import urls
+from users import urls as usersUrls
+
+API_VERSION = 'api/v1'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth', include('rest_framework.urls')),
-    path('api/v1/', include(urls))
+    path(f'{API_VERSION}/users/', include(usersUrls))
 ]
