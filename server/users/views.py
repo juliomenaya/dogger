@@ -23,12 +23,12 @@ class UsersViewSet(ModelViewSet):
             auth_user = Auth(
                 password=data['password'],
                 email=data['email'],
-                username=f"{data['name']}.{data['lastname']}"
+                username=f"{data['name']}.{data['last_name']}"
             )
             auth_user.save()
             user = Users(
                 name=data['name'],
-                last_name=data['lastname'],
+                last_name=data['last_name'],
                 phone=data['phone'],
                 user=auth_user
             )

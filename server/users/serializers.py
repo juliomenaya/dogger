@@ -11,6 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
 class UserSignUpSerializer(serializers.Serializer):
     email = serializers.EmailField()
     name = serializers.CharField()
-    lastname = serializers.CharField()
+    last_name = serializers.CharField()
     phone = serializers.CharField(max_length=10)
     password = serializers.CharField()
