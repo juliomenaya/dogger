@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User as Auth
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from utils.mixins.DetailsMixin import DetailsMixin
 
@@ -12,8 +11,7 @@ class UsersDetailsView(DetailsMixin):
     """
     Retrieve, update or delete a user instance.
     """
-    
-    permission_classes = [IsAuthenticatedOrReadOnly]
+
     model = Users
     serializer = UserSerializer
 
