@@ -16,7 +16,19 @@ class SignInView(APIView):
         try:
             user = Auth.objects.get(email=payload['email'])
             if check_password(payload['password'], user.password):
-                return Response(status=status.HTTP_200_OK)
+                kind = 'owner'
+                if not hasattr(user, kind):
+                    kind = 'walker'
+                user = getattr(user, kind)
+                return Response(
+                    data=dict(
+                        name=user.name,
+                        last_name=user.last_name,
+                        id=user.id,
+                        type=kind
+                    ),
+                    status=status.HTTP_200_OK
+                )
             return Response('Wrong password', status=status.HTTP_401_UNAUTHORIZED)
         except Auth.DoesNotExist:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
