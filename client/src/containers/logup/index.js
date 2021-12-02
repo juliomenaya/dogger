@@ -76,14 +76,6 @@ const LogUp = () => {
               value={values.phone}
             />
             <Input
-              error={errors.address}
-              label='Correo'
-              name='address'
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.address}
-            />
-            <Input
               error={errors.password}
               label='Contraseña'
               name='password'
