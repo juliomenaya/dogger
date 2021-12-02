@@ -11,6 +11,8 @@ import {
   Title
 } from './styled'
 
+import { signup } from '../../services';
+
 const initialValues = {
   email: '',
   password: '',
@@ -28,8 +30,16 @@ const LogUp = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={logUpValidation}
-        onSubmit={(props) => {
-          console.log('formik props >>>', props)
+        onSubmit={async (props) => {
+          try {
+            let created = await signup(props);
+            if (created) {
+              console.log('User created')
+              // Navigate
+            }
+          } catch (err) {
+            console.log('Error singning up', err);
+          }
         }}
       >
         {({
