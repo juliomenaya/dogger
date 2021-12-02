@@ -1,6 +1,8 @@
 import * as Yup from 'yup'
 
 const logUpValidation = Yup.object().shape({
+  userType: Yup.string()
+    .required('Debes selecionar el tipo de usuario'),
   email: Yup.string()
     .email('Correo invalido')
     .required('Campo requerido'),
@@ -20,8 +22,8 @@ const logUpValidation = Yup.object().shape({
   phone: Yup.string()
     .matches(/[0-9]{10,}/g, 'Debe tener diez digitos')
     .required('Campo requerido'),
-  address: Yup.string()
-    .required('Campo requerido'),
+  // address: Yup.string()
+  //   .required('Campo requerido'),
   confirmPassword: Yup.string().when("password", {
     is: val => (val && val.length > 0 ? true : false),
     then: Yup.string().oneOf(

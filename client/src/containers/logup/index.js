@@ -2,7 +2,8 @@ import React from 'react'
 import { Formik } from 'formik'
 import {
   Button,
-  Input
+  Input,
+  Select
 } from '../../components'
 import { logUpValidation } from '../../validationSchemas'
 import {
@@ -16,8 +17,8 @@ const initialValues = {
   name: '',
   lastName: '',
   phone: '',
-  address: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  userType: 'walker'  // hack to set default option
 }
 
 const LogUp = () => {
@@ -41,6 +42,17 @@ const LogUp = () => {
           isValid
         }) => (
           <>
+            <Select
+              value={values.userType}
+              options={[
+                { value: 'walker', label: 'Walker' },
+                { value: 'owner', label: 'Owner' }
+              ]}
+              label={'User Type'}
+              onChange={handleChange}
+              error={errors.name}
+              name='userType'
+            />
             <Input
               error={errors.name}
               label='Nombre(s)'
