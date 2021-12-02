@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
@@ -18,7 +19,7 @@ def register_user(model, request_payload):
 
     if istance_serialized.is_valid():
         user = User(
-            password=data['password'],
+            password=make_password(data['password']),
             email=data['email'],
             username=f"{data['name']}.{data['last_name']}"
         )
