@@ -1,3 +1,23 @@
-from django.shortcuts import render
+from django.contrib.auth.models import User as Auth
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+from utils.mixins.DetailsMixin import DetailsMixin
 
-# Create your views here.
+from .models import Users
+from .serializers import UserSerializer
+
+
+class UsersDetailsView(DetailsMixin):
+    """
+    Retrieve, update or delete a user instance.
+    """
+    
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    model = Users
+    serializer = UserSerializer
+
+    def delete(self, pk):
+        account = Auth.objects.filter(pk)
+        account.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

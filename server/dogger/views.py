@@ -14,36 +14,36 @@ from dogger.serializers import *
 
 # Create your views here.	
 
-class UsersDetailsView(APIView):
-	"""
-	Retrieve, update or delete a user instance.
-	"""
+# class UsersDetailsView(APIView):
+# 	"""
+# 	Retrieve, update or delete a user instance.
+# 	"""
 	
-	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+# 	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 	
-	def get_object(self, pk):
-		try:
-			return UsersModel.objects.get(pk=pk)
-		except Users.DoesNotExist:
-			raise Http404
+# 	def get_object(self, pk):
+# 		try:
+# 			return UsersModel.objects.get(pk=pk)
+# 		except Users.DoesNotExist:
+# 			raise Http404
 
-	def get(self, request, pk, format=None):
-		user = self.get_object(pk)
-		serializer = UserSerializer(user)
-		return Response(serializer.data)
+# 	def get(self, request, pk, format=None):
+# 		user = self.get_object(pk)
+# 		serializer = UserSerializer(user)
+# 		return Response(serializer.data)
 	
-	def put(self, request, pk, format=None):
-		user = self.get_object(pk)
-		serializer = UserSerializer(user, data=request.data)
-		if serializer.is_valid():
-			serializer.save()
-			return Response(serializer.data)
-		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# 	def put(self, request, pk, format=None):
+# 		user = self.get_object(pk)
+# 		serializer = UserSerializer(user, data=request.data)
+# 		if serializer.is_valid():
+# 			serializer.save()
+# 			return Response(serializer.data)
+# 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	
-	def delete(self, request, pk, format=None):
-		account = Auth.objects.filter(pk)
-		account.delete()
-		return Response(status=status.HTTP_204_NO_CONTENT)
+# 	def delete(self, request, pk, format=None):
+# 		account = Auth.objects.filter(pk)
+# 		account.delete()
+# 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 class DogsView(APIView):
 	"""

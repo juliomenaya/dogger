@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 class DetailsMixin(APIView):
+
     @property
     def model(self):
         raise NotImplementedError('Specify a model to use DetailsMixin')
