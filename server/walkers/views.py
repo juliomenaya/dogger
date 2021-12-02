@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from utils.mixins.DetailsMixin import DetailsMixin
 
-# Create your views here.
+from .models import Schedules
+from .serializers import ScheduleSerializer
+
+
+class SchedulesDetailsView(DetailsMixin):
+    model = Schedules
+    serializer = ScheduleSerializer
