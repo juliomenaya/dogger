@@ -2,6 +2,7 @@ import React from 'react'
 import { Formik } from 'formik'
 import { useDispatch } from 'react-redux';
 import { useAlert } from 'react-alert';
+import { useHistory } from 'react-router';
 
 import { login } from '../../reducers/account';
 import {
@@ -24,6 +25,7 @@ const initialValues = {
 const LogIn = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
+  const history = useHistory();
   
   return (
     <Container>
@@ -35,9 +37,11 @@ const LogIn = () => {
           validationSchema={logInValidation}
           onSubmit={(props) => {
             let { email, password } = props;
-            dispatch(login(email, password)).then(({loggedIn, error}) => {
+            dispatch(login(email, password)).then(({ error }) => {
               if (error) {
                 alert.show(error, { type: 'error'} );
+              } else {
+                history.push('/dashboard');
               }
             });
           }}
