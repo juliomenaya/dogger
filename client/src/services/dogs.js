@@ -10,4 +10,15 @@ const addUserDog = async (payload) => {
     }
 };
 
-export { addUserDog };
+const userDogs = async (userId) => {
+    // weird but without the slash before question mark it doest work
+    const url = `/users/dogs/?userId=${userId}`;
+    try {
+        return await client.get(url);
+    } catch (err) {
+        console.log('Error obteniendo lomitos del usuario ', err);
+        return err.response;
+    }
+};
+
+export { addUserDog, userDogs };

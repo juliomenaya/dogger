@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Route } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -12,6 +12,8 @@ import { Input } from '../../components';
 import { Button } from '../../components';
 import { dogValidation } from '../../validationSchemas';
 import { addDog } from '../../reducers/dogs';
+import { userDogs } from '../../services';
+
 
 const AddDog = () => {
     const initialValues = {
@@ -23,8 +25,6 @@ const AddDog = () => {
     const userProfile = useSelector(store => store.account.profile);
     const dispatch = useDispatch();
     const alert = useAlert();
-
-    console.log('A ver el perfile ', userProfile)
 
     return (
         <FormContainer>
@@ -100,7 +100,19 @@ const AddDog = () => {
 
 const DashBoard = () => {
     let { path, url } = useRouteMatch();
-    const history = useHistory()
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const { id: userId } = useSelector(store => store.account.profile);
+    const dogs = useSelector(store => store.dogs.dogs);
+    console.log('A ver mis perros ', dogs)
+
+    useEffect(() => {
+        const getDogs = async () => {
+            let response = await userDogs(userId);
+            dispatch({ type: 'SET_DOGS', payload: response.data });
+        };
+        getDogs();
+    }, [userId, dispatch]);
 
     return (
         <Container>

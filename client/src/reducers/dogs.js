@@ -11,8 +11,15 @@ const dogs = (state = initialState, { type, payload }) => {
                 ...state,
                 dogs: [...state.dogs, payload]
             };
+        case 'SET_DOGS':
+            return {
+                ...state,
+                dogs: [...state.dogs, ...payload]
+            };
+        case 'RESET_DOGS':
+            return initialState;
         default:
-            return state;
+            return initialState;
     }
 };
 
