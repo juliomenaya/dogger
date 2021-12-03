@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Route } from 'react-router-dom';
 import { Formik } from 'formik';
+import { useSelector, useDispatch } from 'react-redux';
+import { useAlert } from 'react-alert';
 
 
 import { Container, Section, Row, AddButton, FormContainer } from './styled';
@@ -9,6 +11,7 @@ import { Select } from '../../components';
 import { Input } from '../../components';
 import { Button } from '../../components';
 import { dogValidation } from '../../validationSchemas';
+import { addDog } from '../../reducers/dogs';
 
 const AddDog = () => {
     const initialValues = {
@@ -17,6 +20,11 @@ const AddDog = () => {
         size: 'small'
     };
     const history = useHistory();
+    const userProfile = useSelector(store => store.account.profile);
+    const dispatch = useDispatch();
+    const alert = useAlert();
+
+    console.log('A ver el perfile ', userProfile)
 
     return (
         <FormContainer>
@@ -25,8 +33,16 @@ const AddDog = () => {
                 initialValues={initialValues}
                 validationSchema={dogValidation}
                 onSubmit={(props) => {
-                    console.log('Formik props >>> ', props)
-                    history.push('/dashboard')
+                    props.user_id = userProfile.id;
+                    dispatch(addDog(props))
+                    .then(({error}) => {
+                        if (error) {
+                            alert.show(error, { type: 'error'} );
+                        } else {
+                            alert.show('Lomito creado', { type: 'success'} );
+                            history.push('/dashboard');
+                        }
+                    });
                 }}
             >
                {({
