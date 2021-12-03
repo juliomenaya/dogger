@@ -27,7 +27,10 @@ const Navbar = (props) => {
       { isLogged && 
         (
           <ButtonsContainer>
-            <Button onPress={() => dispatch({ type: 'LOG_OUT' })}>
+            <Button onPress={() => {
+                dispatch({ type: 'LOG_OUT' })
+                dispatch({ type: 'RESET_DOGS' })
+              }}>
               Cerrar sesión
             </Button>
           </ButtonsContainer>

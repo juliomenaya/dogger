@@ -13,8 +13,9 @@ import storage from 'redux-persist/lib/storage'
 import {
   account,
   users,
-  ui
-} from '../reducers'
+  ui,
+  dogs
+} from '../reducers';
 
 const persistConfig = {
   key: 'root',
@@ -24,8 +25,9 @@ const persistConfig = {
 const reducers = combineReducers({
   account,
   users,
-  ui
-})
+  ui,
+  dogs
+});
 
 const persistedReducer = persistReducer(persistConfig, reducers)
 

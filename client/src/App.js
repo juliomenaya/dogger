@@ -10,7 +10,8 @@ import { Navbar } from './components'
 import {
   Home,
   LogIn,
-  LogUp
+  LogUp,
+  DashBoard
 } from './containers';
 
 const AuthRoute = ({ isLogged }) => (
@@ -18,8 +19,7 @@ const AuthRoute = ({ isLogged }) => (
     {
       isLogged
       ? (<>
-          <h6>Dashboard</h6>
-          {/* <Dashboard /> */}
+          <DashBoard />
         </>
         )
       : (
