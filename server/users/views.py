@@ -26,19 +26,9 @@ class UsersViewSet(ModelViewSet):
             return DogSize.objects.get(size__iexact=size)
         except DogSize.DoesNotExist:
             raise Http404
-
-    @action(detail=False, methods=['post'])
-    def signup(self, request):
-        user, errors = register_user(Users, request.body)
-        
-        if user:
-            return Response(status=status.HTTP_201_CREATED)
-        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
     
-
-    @action(detail=False, methods=['post'])
-    def dogs(self, request):
-        payload = request.data
+    def create_dog(self):
+        payload = self.request.data
 
         for key in ['user_id', 'size', 'name', 'age']:
             if key not in payload:
@@ -63,6 +53,39 @@ class UsersViewSet(ModelViewSet):
             ),
             status=status.HTTP_201_CREATED
         )
+    
+    def list_dogs(self):
+        user_id = self.request.query_params.get('userId')
+        if not user_id:
+            raise Http404('Url must contain userId param')
+        
+        dogs = Dogs.objects.select_related('size').filter(owner__id=user_id)
+        return Response(
+            data=[
+                {
+                    'name': dog.name,
+                    'age': dog.age,
+                    'size': dog.size.size
+                } for dog in dogs
+            ],
+            status=status.HTTP_200_OK
+        )
+
+    @action(detail=False, methods=['post'])
+    def signup(self, request):
+        user, errors = register_user(Users, request.body)
+        
+        if user:
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+    @action(detail=False, methods=['post', 'get'])
+    def dogs(self, request):
+        if request.method == 'POST':
+            return self.create_dog()
+
+        return self.list_dogs()
 
 
 class UsersDetailsView(DetailsMixin):
