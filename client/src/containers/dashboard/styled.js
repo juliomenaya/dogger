@@ -9,10 +9,23 @@ export const Container = styled.div`
     padding: 5% 10%;
 `;
 
+export const DogContainer = styled.div`
+    align-items: center;
+    background: #FFFFF9;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+`;
+
+
 export const Row = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
+    margin: 10px 0px
 `;
 
 
